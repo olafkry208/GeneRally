@@ -71,9 +71,68 @@ class Track
             $objects[] = new TrackData\TrackObject($objectType, $objectSeed, $objectX, $objectY, $objectRotation);
         }
 
-        $trackLength = 999; //TODO
-        $author = 'Tester'; //TODO
-        $authorsComments = 'Test.'; //TODO
+        $pitCrewCount = $stream->readByte()->toInt();
+        $pitCrews = [];
+        for ($i = 0; $i < $pitCrewCount; ++$i) {
+            $pitCrewX = $stream->readWord();
+            $pitCrewY = $stream->readWord();
+            $pitCrewRotation = $stream->readWord();
+
+            $pitCrews[] = new TrackData\PitCrew($pitCrewX, $pitCrewY, $pitCrewRotation);
+        }
+
+        $checkpointCount = $stream->readByte()->toInt();
+        $checkpoints = [];
+        for ($i = 0; $i < $checkpointCount; ++$i) {
+            $checkpointX1 = $stream->readWord();
+            $checkpointY1 = $stream->readWord();
+            $checkpointX2 = $stream->readWord();
+            $checkpointY2 = $stream->readWord();
+
+            $checkpoints[] = new TrackData\Checkpoint($checkpointX1, $checkpointY1, $checkpointX2, $checkpointY2);
+        }
+
+        $aiLineNodeCount = $stream->readWord()->toInt();
+        $aiLineNodes = [];
+        for ($i = 0; $i < $aiLineNodeCount; ++$i) {
+            $aiLineNodeX = $stream->readWord();
+            $alLineNodeY = $stream->readWord();
+
+            $aiLineNodes[] = new TrackData\AiLine\Node($aiLineNodeX, $alLineNodeY);
+        }
+        $aiLine = new TrackData\AiLine($aiLineNodes);
+
+        $aiLinePitNodeCount = $stream->readByte()->toInt();
+        $aiLinePitNodes = [];
+        for ($i = 0; $i < $aiLinePitNodeCount; ++$i) {
+            $aiLinePitNodeX = $stream->readWord();
+            $alLinePitNodeY = $stream->readWord();
+
+            $aiLinePitNodes[] = new TrackData\AiLine\Node($aiLinePitNodeX, $alLinePitNodeY);
+        }
+        $aiLinePit = new TrackData\AiLine($aiLinePitNodes);
+
+        $propertiesSectionStart = $stream->readWord(); // 0xFFFF
+
+        $author = '';
+        for ($i = 0; $i < 30; $i++) {
+            $authorChar = $stream->readByte();
+            if ($authorChar->toInt() !== 0) {
+                $author .= $authorChar->__toString();
+            }
+        }
+
+        $authorsComments = '';
+        for ($i = 0; $i < 500; $i++) {
+            $authorsCommentsChar = $stream->readByte();
+            if ($authorsCommentsChar->toInt() !== 0) {
+                $authorsComments .= $authorsCommentsChar->__toString();
+            }
+        }
+
+        $propertiesSectionEnd = $stream->readWord(); // 0xFFFF
+
+        $trackLength = $stream->readDword()->toInt();
 
         $properties = new TrackData\Properties(
             $waterLevel,
@@ -86,11 +145,6 @@ class Track
             $author,
             $authorsComments
         );
-
-        $pitCrews = []; //TODO
-        $checkpoints = []; //TODO
-        $aiLine = new TrackData\AiLine(); //TODO
-        $aiLinePit = new TrackData\AiLine(); //TODO
 
         $trackData = new TrackData(
             $header,

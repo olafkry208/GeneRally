@@ -49,7 +49,19 @@ class TrackObject
     /** @var float */
     private $rotation;
 
+    /**
+     * @param Byte $type
+     * @param Byte $seed
+     * @param Word $x
+     * @param Word $y
+     * @param Word $rotation
+     */
     public function __construct(Byte $type, Byte $seed, Word $x, Word $y, Word $rotation)
     {
+        $this->type = $type->toInt();
+        $this->seed = $seed->toInt();
+        $this->x = $x->toInt();
+        $this->y = $y->toInt();
+        $this->rotation = $rotation->toInt();
     }
 }

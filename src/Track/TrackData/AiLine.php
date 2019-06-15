@@ -9,4 +9,12 @@ class AiLine
 {
     /** @var Node[] */
     private $knots;
+
+    /**
+     * @param Node[] $knots
+     */
+    public function __construct(array $knots)
+    {
+        $this->knots = $knots;
+    }
 }
