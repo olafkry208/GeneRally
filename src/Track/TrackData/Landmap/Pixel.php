@@ -19,7 +19,7 @@ class Pixel
     public const SURFACE_RED_LINE = 11;
     public const SURFACE_OIL = 12;
 
-    private const PIXEL_COLOR = [
+    public const PIXEL_COLOR = [
         self::SURFACE_TARMAC1 => [160, 160, 160],
         self::SURFACE_TARMAC2 => [180, 180, 180],
         self::SURFACE_GRASS => [144, 220, 96],

@@ -44,18 +44,21 @@ class Landmap
         }
     }
 
-    public function toImage(): ImageInterface
+    /**
+     * @return resource
+     */
+    public function toImage()
     {
-        $imagine = new \Imagine\Gd\Imagine();
+        $image = imagecreate(self::WIDTH, self::HEIGHT);
 
-        $size = new \Imagine\Image\Box(self::WIDTH, self::HEIGHT);
-        $image = $imagine->create($size);
+        $colors = [];
+        for ($i = 0; $i < 16; $i++) {
+            $color = Pixel::PIXEL_COLOR[$i];
+            $colors[] = imagecolorallocate($image, $color[0], $color[1], $color[2]);
+        }
 
         foreach ($this->pixels as $pixel) {
-            $position = new \Imagine\Image\Point($pixel->getX(), $pixel->getY());
-            $color = new \Imagine\Image\Palette\Color\RGB(new \Imagine\Image\Palette\RGB(), $pixel->getColor(), 100);
-
-            $image->draw()->dot($position, $color);
+            imagesetpixel($image, $pixel->getX(), $pixel->getY(), $colors[$pixel->getSurface()]);
         }
 
         return $image;
