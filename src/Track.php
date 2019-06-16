@@ -34,6 +34,18 @@ class Track
     {
         $stream = ByteStream::createFromFile($filename);
 
+        return self::createFromStream($stream);
+    }
+
+    /**
+     * @param ByteStream $stream
+     * @return Track
+     * @throws \Exception
+     */
+    public static function createFromStream(ByteStream $stream): Track
+    {
+        //TODO - Add 1.2 support
+
         $header = new TrackData\Header($stream->readDword());
 
         $timeDataAddress = $stream->readDword()->toInt();
