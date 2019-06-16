@@ -72,6 +72,18 @@ class ByteStream
     }
 
     /**
+     * @param int $maxLength
+     * @return string
+     * @throws \Exception
+     */
+    public function readString(int $maxLength): string
+    {
+        $string = $this->readBinaryValue($maxLength);
+
+        return substr($string, 0, strpos($string, chr(0)));
+    }
+
+    /**
      * @return Byte
      * @throws \Exception
      */

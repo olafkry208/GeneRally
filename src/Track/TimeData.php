@@ -11,7 +11,7 @@ class TimeData
     /** @var BestTime[] */
     private $trackTimes;
 
-    /** @var ?Ghost */
+    /** @var Ghost|null */
     private $ghost;
 
     /**
@@ -22,5 +22,21 @@ class TimeData
     {
         $this->trackTimes = $trackTimes;
         $this->ghost = $ghost;
+    }
+
+    /**
+     * @return BestTime[]
+     */
+    public function getTrackTimes(): array
+    {
+        return $this->trackTimes;
+    }
+
+    /**
+     * @return Ghost|null
+     */
+    public function getGhost(): ?Ghost
+    {
+        return $this->ghost;
     }
 }

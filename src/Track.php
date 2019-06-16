@@ -126,21 +126,8 @@ class Track
 
         $authorSectionStart = $stream->readWord(); // 0xFFFF
 
-        $author = '';
-        for ($i = 0; $i < 30; $i++) {
-            $authorChar = $stream->readByte();
-            if ($authorChar->toInt() !== 0) {
-                $author .= $authorChar->__toString();
-            }
-        }
-
-        $authorsComments = '';
-        for ($i = 0; $i < 500; $i++) {
-            $authorsCommentsChar = $stream->readByte();
-            if ($authorsCommentsChar->toInt() !== 0) {
-                $authorsComments .= $authorsCommentsChar->__toString();
-            }
-        }
+        $author = $stream->readString(30);
+        $authorsComments = $stream->readString(500);
 
         $authorSectionEnd = $stream->readWord(); // 0xFFFF
 
@@ -177,15 +164,7 @@ class Track
 
         $driverNames = [];
         for ($i = 0; $i < 7; $i++) {
-            $driverName = '';
-            for ($j = 0; $j < 13; $j++) {
-                $driverNameChar = $stream->readByte();
-                if ($driverNameChar->toInt() !== 0) {
-                    $driverName .= $driverNameChar->__toString();
-                }
-            }
-
-            $driverNames[] = $driverName;
+            $driverNames[] = $stream->readString(13);
         }
 
         $cars = [];
