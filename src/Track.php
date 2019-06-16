@@ -112,7 +112,7 @@ class Track
         }
         $aiLinePit = new TrackData\AiLine($aiLinePitNodes);
 
-        $propertiesSectionStart = $stream->readWord(); // 0xFFFF
+        $authorSectionStart = $stream->readWord(); // 0xFFFF
 
         $author = '';
         for ($i = 0; $i < 30; $i++) {
@@ -130,7 +130,7 @@ class Track
             }
         }
 
-        $propertiesSectionEnd = $stream->readWord(); // 0xFFFF
+        $authorSectionEnd = $stream->readWord(); // 0xFFFF
 
         $trackLength = $stream->readDword()->toInt();
 
@@ -157,7 +157,87 @@ class Track
             $aiLine,
             $aiLinePit
         );
-        $timeData = new TimeData();
+
+        $lapTimes = [];
+        for ($i = 0; $i < 7; $i++) {
+            $lapTimes[] = new TimeData\LapTime($stream->readWord());
+        }
+
+        $driverNames = [];
+        for ($i = 0; $i < 7; $i++) {
+            $driverName = '';
+            for ($j = 0; $j < 13; $j++) {
+                $driverNameChar = $stream->readByte();
+                if ($driverNameChar->toInt() !== 0) {
+                    $driverName .= $driverNameChar->__toString();
+                }
+            }
+
+            $driverNames[] = $driverName;
+        }
+
+        $cars = [];
+        for ($i = 0; $i < 7; $i++) {
+            for ($j = 0; $j < 1344; $j++) {
+                $stream->readByte(); //TODO - Car processing
+            }
+
+            $cars[] = new Car();
+        }
+
+        $dateTimes = [];
+        for ($i = 0; $i < 7; $i++) {
+            $year = $stream->readWord()->toInt();
+            $month = $stream->readWord()->toInt();
+            $weekday = $stream->readWord()->toInt(); //TODO - verify if this really weekday
+            $day = $stream->readWord()->toInt();
+            $hour = $stream->readWord()->toInt();
+            $minute = $stream->readWord()->toInt();
+            $second = $stream->readWord()->toInt();
+            $millisecond = $stream->readWord()->toInt();
+
+            $dateTimes[] = new \DateTimeImmutable("{$year}-{$month}-{$day} {$hour}:{$minute}:{$second}.{$millisecond} UTC");
+        }
+
+        $bestTimes = [];
+        for ($i = 0; $i < 7; $i++) {
+            //TODO - detect when best time is empty
+            $bestTimes[] = new TimeData\BestTime($lapTimes[$i], $driverNames[$i], $cars[$i], $dateTimes[$i]);
+        }
+
+        $ghost = null;
+        if (!$stream->isEof()) {
+            $ghostLapTime = new TimeData\LapTime($stream->readWord());
+
+            $ghostFrameCount = 1 + (int)floor($ghostLapTime->toCentiseconds() / 2);
+            $ghostFrames = [];
+            for ($i = 0; $i < $ghostFrameCount; $i++) {
+                $ghostFrameX = $stream->readWord();
+                $ghostFrameY = $stream->readWord();
+                $ghostFrameZ = $stream->readWord();
+                $ghostFrameRotationX = $stream->readWord();
+                $ghostFrameRotationY = $stream->readWord();
+                $ghostFrameRotationZ = $stream->readWord();
+
+                $ghostFrames[] = new TimeData\Ghost\Node(
+                    $ghostFrameX,
+                    $ghostFrameY,
+                    $ghostFrameZ,
+                    $ghostFrameRotationX,
+                    $ghostFrameRotationY,
+                    $ghostFrameRotationZ
+                );
+            }
+
+            $checksum = '';
+            for ($i = 0; $i < 16; $i++) {
+                $checksum .= $stream->readByte()->__toString();
+            }
+
+            $ghost = new TimeData\Ghost($ghostLapTime, $ghostFrames, $checksum);
+        }
+
+        $timeData = new TimeData($bestTimes, $ghost);
 
         return new self($trackData, $timeData);
     }

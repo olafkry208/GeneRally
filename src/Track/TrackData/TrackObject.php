@@ -59,7 +59,7 @@ class TrackObject
     public function __construct(Byte $type, Byte $seed, Word $x, Word $y, Word $rotation)
     {
         $this->type = $type->toInt();
-        $this->seed = $seed->toInt();
+        $this->seed = $seed->toInt(); //TODO - verify if this is really random
         $this->x = $x->toInt();
         $this->y = $y->toInt();
         $this->rotation = $rotation->toInt();
