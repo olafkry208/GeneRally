@@ -180,7 +180,7 @@ class Track
         for ($i = 0; $i < 7; $i++) {
             $year = $stream->readWord()->toInt();
             $month = $stream->readWord()->toInt();
-            $weekday = $stream->readWord()->toInt(); //TODO - verify if this really weekday
+            $weekday = $stream->readWord()->toInt();
             $day = $stream->readWord()->toInt();
             $hour = $stream->readWord()->toInt();
             $minute = $stream->readWord()->toInt();
