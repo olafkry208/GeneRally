@@ -22,6 +22,44 @@ ob_start();
 <body>
 <img src="<?php echo $landmapRenderer->toDataUri(); ?>">
 <table>
+    <tr>
+        <th>Water level</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getWaterLevel(); ?></td>
+    </tr>
+    <tr>
+        <th>View angle</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getViewAngle(); ?>&deg;</td>
+    </tr>
+    <tr>
+        <th>Rotation</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getRotation(); ?>&deg;</td>
+    </tr>
+    <tr>
+        <th>Zoom</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getZoom(); ?></td>
+    </tr>
+    <tr>
+        <th>World size</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getWorldSize(); ?> m</td>
+    </tr>
+    <tr>
+        <th>S/F line</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getSfLine()->toBool() ? 'Yes' : 'No'; ?></td>
+    </tr>
+    <tr>
+        <th>Track length</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getTrackLength(); ?> m</td>
+    </tr>
+    <tr>
+        <th>Author</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getAuthor(); ?></td>
+    </tr>
+    <tr>
+        <th>Author's comments</th>
+        <td><?php echo $track->getTrackData()->getProperties()->getAuthorsComments(); ?></td>
+    </tr>
+</table>
+<table>
     <?php foreach ($track->getTimeData()->getBestTimes() as $i => $bestTime) { ?>
         <tr>
             <th><?php echo $i === 0 ? 'TR' : "{$i}."; ?></th>

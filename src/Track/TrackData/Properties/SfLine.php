@@ -27,6 +27,14 @@ class SfLine
 
     public function __toString()
     {
-        return (string)$this->value;
+        return $this->value ? '1' : '0';
+    }
+
+    /**
+     * @return bool
+     */
+    public function toBool(): bool
+    {
+        return $this->value;
     }
 }

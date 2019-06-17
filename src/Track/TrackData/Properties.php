@@ -71,4 +71,76 @@ class Properties
         $this->author = $author;
         $this->authorsComments = $authorsComments;
     }
+
+    /**
+     * @return WaterLevel
+     */
+    public function getWaterLevel(): WaterLevel
+    {
+        return $this->waterLevel;
+    }
+
+    /**
+     * @return ViewAngle
+     */
+    public function getViewAngle(): ViewAngle
+    {
+        return $this->viewAngle;
+    }
+
+    /**
+     * @return Rotation
+     */
+    public function getRotation(): Rotation
+    {
+        return $this->rotation;
+    }
+
+    /**
+     * @return Zoom
+     */
+    public function getZoom(): Zoom
+    {
+        return $this->zoom;
+    }
+
+    /**
+     * @return WorldSize
+     */
+    public function getWorldSize(): WorldSize
+    {
+        return $this->worldSize;
+    }
+
+    /**
+     * @return SfLine
+     */
+    public function getSfLine(): SfLine
+    {
+        return $this->sfLine;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrackLength(): int
+    {
+        return $this->trackLength;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthorsComments(): string
+    {
+        return $this->authorsComments;
+    }
 }
