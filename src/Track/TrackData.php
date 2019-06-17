@@ -5,7 +5,6 @@ namespace Kryus\GeneRally\Track;
 
 use Kryus\GeneRally\Track\TrackData\AiLine;
 use Kryus\GeneRally\Track\TrackData\Checkpoint;
-use Kryus\GeneRally\Track\TrackData\Header;
 use Kryus\GeneRally\Track\TrackData\Heightmap;
 use Kryus\GeneRally\Track\TrackData\Landmap;
 use Kryus\GeneRally\Track\TrackData\PitCrew;
@@ -14,9 +13,6 @@ use Kryus\GeneRally\Track\TrackData\TrackObject;
 
 class TrackData
 {
-    /** @var Header */
-    private $header;
-
     /** @var Properties */
     private $properties;
 
@@ -42,7 +38,6 @@ class TrackData
     private $aiLinePit;
 
     /**
-     * @param Header $header
      * @param Properties $properties
      * @param Landmap $landmap
      * @param Heightmap $heightmap
@@ -53,7 +48,6 @@ class TrackData
      * @param AiLine $aiLinePit
      */
     public function __construct(
-        Header $header,
         Properties $properties,
         Landmap $landmap,
         Heightmap $heightmap,
@@ -63,7 +57,6 @@ class TrackData
         AiLine $aiLine,
         AiLine $aiLinePit
     ) {
-        $this->header = $header;
         $this->properties = $properties;
         $this->landmap = $landmap;
         $this->heightmap = $heightmap;
@@ -72,14 +65,6 @@ class TrackData
         $this->checkpoints = $checkpoints;
         $this->aiLine = $aiLine;
         $this->aiLinePit = $aiLinePit;
-    }
-
-    /**
-     * @return Header
-     */
-    public function getHeader(): Header
-    {
-        return $this->header;
     }
 
     /**

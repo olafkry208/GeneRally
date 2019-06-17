@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Kryus\GeneRally\Track\TrackData;
+namespace Kryus\GeneRally\Track;
 
 use Kryus\GeneRally\DataType\Dword;
-use Kryus\GeneRally\Track\TrackData\Header\Version;
+use Kryus\GeneRally\Track\Header\Version;
 
 class Header
 {

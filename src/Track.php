@@ -4,11 +4,15 @@ declare(strict_types=1);
 namespace Kryus\GeneRally;
 
 use Kryus\GeneRally\DataType\ByteStream;
+use Kryus\GeneRally\Track\Header;
 use Kryus\GeneRally\Track\TimeData;
 use Kryus\GeneRally\Track\TrackData;
 
 class Track
 {
+    /** @var Header */
+    private $header;
+
     /** @var TrackData */
     private $trackData;
 
@@ -16,11 +20,13 @@ class Track
     private $timeData;
 
     /**
+     * @param Header $header
      * @param TrackData $trackData
      * @param TimeData $timeData
      */
-    public function __construct(TrackData $trackData, TimeData $timeData)
+    public function __construct(Header $header, TrackData $trackData, TimeData $timeData)
     {
+        $this->header = $header;
         $this->trackData = $trackData;
         $this->timeData = $timeData;
     }
@@ -46,7 +52,7 @@ class Track
     {
         //TODO - Add 1.2 support
 
-        $header = new TrackData\Header($stream->readDword());
+        $header = new Header($stream->readDword());
 
         $timeDataAddress = $stream->readDword()->toInt();
 
@@ -146,7 +152,6 @@ class Track
         );
 
         $trackData = new TrackData(
-            $header,
             $properties,
             $landmap,
             $heightmap,
@@ -230,7 +235,15 @@ class Track
 
         $timeData = new TimeData($bestTimes, $ghost);
 
-        return new self($trackData, $timeData);
+        return new self($header, $trackData, $timeData);
+    }
+
+    /**
+     * @return Header
+     */
+    public function getHeader(): Header
+    {
+        return $this->header;
     }
 
     /**

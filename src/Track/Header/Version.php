@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Kryus\GeneRally\Track\TrackData\Header;
+namespace Kryus\GeneRally\Track\Header;
 
 use Kryus\GeneRally\DataType\Word;
 
