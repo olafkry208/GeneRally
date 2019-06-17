@@ -20,7 +20,7 @@ ob_start();
 <html>
 <head></head>
 <body>
-<img src="<?php echo $landmapRenderer->toDataUri(); ?>">
+<img src="<?php echo $landmapRenderer->toDataUri(); ?>" style="transform: perspective(1024px) rotateX(<?php echo $track->getTrackData()->getProperties()->getViewAngle(); ?>deg) rotateZ(<?php echo $track->getTrackData()->getProperties()->getRotation(); ?>deg) scale(0.7071)">
 <table>
     <tr>
         <th>Water level</th>
