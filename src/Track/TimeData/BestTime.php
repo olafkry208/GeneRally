@@ -32,4 +32,36 @@ class BestTime
         $this->car = $car;
         $this->dateTime = $dateTime;
     }
+
+    /**
+     * @return LapTime
+     */
+    public function getLapTime(): LapTime
+    {
+        return $this->lapTime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDriverName(): string
+    {
+        return $this->driverName;
+    }
+
+    /**
+     * @return Car
+     */
+    public function getCar(): Car
+    {
+        return $this->car;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getDateTime(): \DateTimeImmutable
+    {
+        return $this->dateTime;
+    }
 }

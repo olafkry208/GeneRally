@@ -9,27 +9,27 @@ use Kryus\GeneRally\Track\TimeData\Ghost;
 class TimeData
 {
     /** @var BestTime[] */
-    private $trackTimes;
+    private $bestTimes;
 
     /** @var Ghost|null */
     private $ghost;
 
     /**
-     * @param BestTime[] $trackTimes
+     * @param BestTime[] $bestTimes
      * @param Ghost $ghost
      */
-    public function __construct(array $trackTimes, ?Ghost $ghost = null)
+    public function __construct(array $bestTimes, ?Ghost $ghost = null)
     {
-        $this->trackTimes = $trackTimes;
+        $this->bestTimes = $bestTimes;
         $this->ghost = $ghost;
     }
 
     /**
      * @return BestTime[]
      */
-    public function getTrackTimes(): array
+    public function getBestTimes(): array
     {
-        return $this->trackTimes;
+        return $this->bestTimes;
     }
 
     /**
