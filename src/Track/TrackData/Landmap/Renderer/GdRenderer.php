@@ -47,4 +47,20 @@ class GdRenderer
     {
         return imagebmp($this->render(), $filename);
     }
+
+    public function __toString()
+    {
+        ob_start();
+        imagebmp($this->render());
+
+        return (string)ob_get_clean();
+    }
+
+    /**
+     * @return string
+     */
+    public function toDataUri()
+    {
+        return 'data:image/bmp;base64,' . base64_encode($this->__toString());
+    }
 }
