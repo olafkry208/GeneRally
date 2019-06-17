@@ -10,10 +10,10 @@ use Kryus\GeneRally\Track\TrackData\Heightmap\Height;
 class Heightmap
 {
     /** @var int */
-    private const WIDTH = 64;
+    public const WIDTH = 64;
 
     /** @var int */
-    private const HEIGHT = 64;
+    public const HEIGHT = 64;
 
     /** @var Height[] */
     private $heights = [];

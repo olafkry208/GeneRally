@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": ">=7.1",
+    "ext-gd": "*",
     "imagine/imagine": "^1.0"
   },
   "autoload": {

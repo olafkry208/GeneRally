@@ -3,18 +3,16 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Track\TrackData;
 
-use Imagine\Image\AbstractImage;
-use Imagine\Image\ImageInterface;
 use Kryus\GeneRally\DataType\Word;
 use Kryus\GeneRally\Track\TrackData\Landmap\Pixel;
 
 class Landmap
 {
     /** @var int */
-    private const WIDTH = 512;
+    public const WIDTH = 512;
 
     /** @var int */
-    private const HEIGHT = 512;
+    public const HEIGHT = 512;
 
     /** @var Pixel[] */
     private $pixels = [];
@@ -45,22 +43,10 @@ class Landmap
     }
 
     /**
-     * @return resource
+     * @return Pixel[]
      */
-    public function toImage()
+    public function getPixels(): array
     {
-        $image = imagecreate(self::WIDTH, self::HEIGHT);
-
-        $colors = [];
-        for ($i = 0; $i < 16; $i++) {
-            $color = Pixel::PIXEL_COLOR[$i];
-            $colors[] = imagecolorallocate($image, $color[0], $color[1], $color[2]);
-        }
-
-        foreach ($this->pixels as $pixel) {
-            imagesetpixel($image, $pixel->getX(), $pixel->getY(), $colors[$pixel->getSurface()]);
-        }
-
-        return $image;
+        return $this->pixels;
     }
 }
