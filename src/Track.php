@@ -48,7 +48,7 @@ class Track
      * @return Track
      * @throws \Exception
      */
-    public static function createFromStream(ByteStream $stream): Track
+    private static function createFromStream(ByteStream $stream): Track
     {
         //TODO - Add 1.2 support
 

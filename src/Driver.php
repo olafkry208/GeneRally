@@ -49,7 +49,7 @@ abstract class Driver
      * @return Driver
      * @throws \Exception
      */
-    public static function createFromStream(ByteStream $stream): Driver
+    private static function createFromStream(ByteStream $stream): Driver
     {
         $header = $stream->readDword(); // 0x5C 0x00 0x00 0x00 ???
 
