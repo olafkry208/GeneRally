@@ -22,7 +22,7 @@ class SfLine
             throw new \Exception("Invalid value of {$intValue} for S/F Line.");
         }
 
-        $this->value = $value->toInt() !== 0;
+        $this->value = $intValue !== 0;
     }
 
     public function __toString()
