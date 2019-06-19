@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Kryus\GeneRally\Driver\Colors;
+namespace Kryus\GeneRally\Palette;
 
 use Kryus\GeneRally\DataType\Dword;
 

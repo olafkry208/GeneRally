@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver;
 
-use Kryus\GeneRally\Driver\Colors\Color;
+use Kryus\GeneRally\Palette\Color;
 
 class Colors
 {

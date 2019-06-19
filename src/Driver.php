@@ -10,6 +10,7 @@ use Kryus\GeneRally\Driver\ComputerDriver;
 use Kryus\GeneRally\Driver\Controls;
 use Kryus\GeneRally\Driver\HumanDriver;
 use Kryus\GeneRally\Driver\Statistics;
+use Kryus\GeneRally\Palette\Color;
 
 abstract class Driver
 {
@@ -73,8 +74,8 @@ abstract class Driver
 
         $a = $stream->readDword(); // ???
 
-        $primaryColor = new Colors\Color($stream->readDword());
-        $secondaryColor = new Colors\Color($stream->readDword());
+        $primaryColor = new Color($stream->readDword());
+        $secondaryColor = new Color($stream->readDword());
 
         $colors = new Colors($primaryColor, $secondaryColor);
 
