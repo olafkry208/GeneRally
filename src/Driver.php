@@ -73,26 +73,15 @@ abstract class Driver
 
         $a = $stream->readDword(); // ???
 
-        $primaryB = $stream->readByte();
-        $primaryG = $stream->readByte();
-        $primaryR = $stream->readByte();
-        $primaryPadding = $stream->readByte();
-
-        $primaryColor = new Colors\Color($primaryR, $primaryG, $primaryB);
-
-        $secondaryB = $stream->readByte();
-        $secondaryG = $stream->readByte();
-        $secondaryR = $stream->readByte();
-        $secondaryPadding = $stream->readByte();
-
-        $secondaryColor = new Colors\Color($secondaryR, $secondaryG, $secondaryB);
+        $primaryColor = new Colors\Color($stream->readDword());
+        $secondaryColor = new Colors\Color($stream->readDword());
 
         $colors = new Colors($primaryColor, $secondaryColor);
 
-        $accelerate = $stream->readDword();
-        $brake = $stream->readDword();
-        $steerLeft = $stream->readDword();
-        $steerRight = $stream->readDword();
+        $accelerate = $stream->readSignedDword();
+        $brake = $stream->readSignedDword();
+        $steerLeft = $stream->readSignedDword();
+        $steerRight = $stream->readSignedDword();
 
         $isComputerDriver = $accelerate->toInt() === 0;
 

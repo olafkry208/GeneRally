@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver\Colors;
 
-use Kryus\GeneRally\DataType\Byte;
+use Kryus\GeneRally\DataType\Dword;
 
 class Color
 {
@@ -16,11 +16,13 @@ class Color
     /** @var int */
     private $blue;
 
-    public function __construct(Byte $red, Byte $green, Byte $blue)
+    public function __construct(Dword $value)
     {
-        $this->red = $red->toInt();
-        $this->green = $green->toInt();
-        $this->blue = $blue->toInt();
+        $intValue = $value->toInt();
+
+        $this->red = ($intValue >> 16) % 256;
+        $this->green = ($intValue >> 8) % 256;
+        $this->blue = $intValue % 256;
     }
 
     public function __toString()

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver;
 
-use Kryus\GeneRally\DataType\Dword;
+use Kryus\GeneRally\DataType\SignedDword;
 
 class AiLevel
 {
@@ -11,10 +11,10 @@ class AiLevel
     private $value;
 
     /**.
-     * @param Byte $value
+     * @param SignedDword $value
      * @throws \Exception
      */
-    public function __construct(Dword $value)
+    public function __construct(SignedDword $value)
     {
         $intValue = $value->toInt();
 

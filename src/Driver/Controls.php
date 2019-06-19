@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver;
 
-use Kryus\GeneRally\DataType\Dword;
+use Kryus\GeneRally\DataType\SignedDword;
 
 class Controls
 {
     // TODO - create a keyboard key class to support control keys, arrows etc.
+
     /** @var string */
     private $accelerate;
 
@@ -22,12 +23,12 @@ class Controls
 
     /**
      * Controls constructor.
-     * @param Dword $accelerate
-     * @param Dword $brake
-     * @param Dword $steerLeft
-     * @param Dword $steerRight
+     * @param SignedDword $accelerate
+     * @param SignedDword $brake
+     * @param SignedDword $steerLeft
+     * @param SignedDword $steerRight
      */
-    public function __construct(Dword $accelerate, Dword $brake, Dword $steerLeft, Dword $steerRight)
+    public function __construct(SignedDword $accelerate, SignedDword $brake, SignedDword $steerLeft, SignedDword $steerRight)
     {
         $this->accelerate = $accelerate->__toString();
         $this->brake = $brake->__toString();
