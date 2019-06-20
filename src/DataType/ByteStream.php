@@ -42,6 +42,9 @@ class ByteStream
         return new self($contents, $endianness);
     }
 
+    /**
+     * @return bool
+     */
     public function isEof(): bool
     {
         return $this->cursor === strlen($this->contents);
@@ -93,68 +96,98 @@ class ByteStream
     }
 
     /**
+     * @param int|null $endianness
      * @return Byte
      * @throws \Exception
      */
-    public function readByte(): Byte
+    public function readByte(?int $endianness = null): Byte
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(1);
 
-        return new Byte($binaryValue, $this->endianness);
+        return new Byte($binaryValue, $endianness ?? $this->endianness);
     }
 
     /**
+     * @param int|null $endianness
      * @return SignedByte
      * @throws \Exception
      */
-    public function readSignedByte(): SignedByte
+    public function readSignedByte(?int $endianness = null): SignedByte
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(1);
 
-        return new SignedByte($binaryValue, $this->endianness);
+        return new SignedByte($binaryValue, $endianness ?? $this->endianness);
     }
 
     /**
+     * @param int|null $endianness
      * @return Word
      * @throws \Exception
      */
-    public function readWord(): Word
+    public function readWord(?int $endianness = null): Word
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(2);
 
-        return new Word($binaryValue, $this->endianness);
+        return new Word($binaryValue, $endianness ?? $this->endianness);
     }
 
     /**
+     * @param int|null $endianness
      * @return SignedWord
      * @throws \Exception
      */
-    public function readSignedWord(): SignedWord
+    public function readSignedWord(?int $endianness = null): SignedWord
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(2);
 
-        return new SignedWord($binaryValue, $this->endianness);
+        return new SignedWord($binaryValue, $endianness ?? $this->endianness);
     }
 
     /**
+     * @param int|null $endianness
      * @return Dword
      * @throws \Exception
      */
-    public function readDword(): Dword
+    public function readDword(?int $endianness = null): Dword
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(4);
 
-        return new Dword($binaryValue, $this->endianness);
+        return new Dword($binaryValue, $endianness ?? $this->endianness);
     }
 
     /**
+     * @param int|null $endianness
      * @return SignedDword
      * @throws \Exception
      */
-    public function readSignedDword(): SignedDword
+    public function readSignedDword(?int $endianness = null): SignedDword
     {
+        if (!in_array($endianness, [null, BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
+            throw new \Exception('Invalid endianness type.');
+        }
+
         $binaryValue = $this->readBytes(4);
 
-        return new SignedDword($binaryValue, $this->endianness);
+        return new SignedDword($binaryValue, $endianness ?? $this->endianness);
     }
 }

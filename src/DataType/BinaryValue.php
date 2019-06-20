@@ -37,11 +37,25 @@ class BinaryValue
         $this->signed = $signed;
     }
 
+    /**
+     * @return int
+     */
     public function getEndianness(): int
     {
         return $this->endianness;
     }
 
+    /**
+     * @return bool
+     */
+    public function isSigned(): bool
+    {
+        return $this->signed;
+    }
+
+    /**
+     * @return int
+     */
     public function toInt(): int
     {
         $value = 0;
@@ -70,6 +84,9 @@ class BinaryValue
         return $value;
     }
 
+    /**
+     * @return string
+     */
     public function toHex(): string
     {
         return implode('', array_map(
@@ -80,6 +97,9 @@ class BinaryValue
         ));
     }
 
+    /**
+     * @return string
+     */
     public function toBin(): string
     {
         return implode('', array_map(
@@ -90,6 +110,9 @@ class BinaryValue
         ));
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return implode('', array_map(
