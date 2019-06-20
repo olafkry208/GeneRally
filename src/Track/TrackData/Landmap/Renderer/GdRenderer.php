@@ -6,6 +6,10 @@ namespace Kryus\GeneRally\Track\TrackData\Landmap\Renderer;
 use Kryus\GeneRally\Track\TrackData\Landmap;
 use Kryus\GeneRally\Track\TrackData\Landmap\Pixel;
 
+/**
+ * Saving to BMP via GD sometimes corrupts last few pixels on on some rows.
+ * To be replaced by manually crafting a BMP file.
+ */
 class GdRenderer
 {
     /** @var Landmap */
