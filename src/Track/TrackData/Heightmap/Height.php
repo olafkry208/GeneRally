@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Track\TrackData\Heightmap;
 
-use Kryus\GeneRally\DataType\Byte;
+use Kryus\Binary\DataType\Byte;
 
 class Height
 {

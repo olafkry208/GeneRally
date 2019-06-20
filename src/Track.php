@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally;
 
-use Kryus\GeneRally\DataType\ByteStream;
+use Kryus\Binary\ByteStream;
 use Kryus\GeneRally\Track\Header;
 use Kryus\GeneRally\Track\TimeData;
 use Kryus\GeneRally\Track\TrackData;

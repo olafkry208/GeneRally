@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d173f5d1b80686d14fcf8f51d79dc754",
+    "content-hash": "1d34f6bf4836a0f4650d47a1c03a2d11",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -63,6 +63,44 @@
                 "image processing"
             ],
             "time": "2019-06-03T15:06:06+00:00"
+        },
+        {
+            "name": "kryus/binary",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:olafkry208/Binary.git",
+                "reference": "dca8af5592b224e05cdc1caa2eac31d6bf6facef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/olafkry208/Binary/zipball/dca8af5592b224e05cdc1caa2eac31d6bf6facef",
+                "reference": "dca8af5592b224e05cdc1caa2eac31d6bf6facef",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kryus\\Binary\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Olaf Kryus"
+                }
+            ],
+            "description": "Binary file manipulation library.",
+            "support": {
+                "source": "https://github.com/olafkry208/Binary/tree/v0.1",
+                "issues": "https://github.com/olafkry208/Binary/issues"
+            },
+            "time": "2019-06-20T13:08:06+00:00"
         }
     ],
     "packages-dev": [],
@@ -72,7 +110,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": "^7.1",
+        "ext-gd": "*"
     },
     "platform-dev": []
 }

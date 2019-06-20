@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Track\TrackData;
 
-use Kryus\GeneRally\DataType\Word;
+use Kryus\Binary\DataType\Word;
 use Kryus\GeneRally\Track\TrackData\Landmap\Pixel;
 
 class Landmap

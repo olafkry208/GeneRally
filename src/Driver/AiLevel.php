@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver;
 
-use Kryus\GeneRally\DataType\SignedDword;
+use Kryus\Binary\DataType\SignedDword;
 
 class AiLevel
 {

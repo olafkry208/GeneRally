@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally;
 
-use Kryus\GeneRally\DataType\ByteStream;
+use Kryus\Binary\ByteStream;
 use Kryus\GeneRally\Driver\AiLevel;
 use Kryus\GeneRally\Driver\Colors;
 use Kryus\GeneRally\Driver\ComputerDriver;

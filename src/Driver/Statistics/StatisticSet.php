@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Driver\Statistics;
 
-use Kryus\GeneRally\DataType\Dword;
+use Kryus\Binary\DataType\Dword;
 
 class StatisticSet
 {

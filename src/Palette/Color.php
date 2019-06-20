@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Palette;
 
-use Kryus\GeneRally\DataType\Dword;
+use Kryus\Binary\DataType\Dword;
 
 class Color
 {

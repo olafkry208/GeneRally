@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Track\TrackData\Properties;
 
-use Kryus\GeneRally\DataType\SignedWord;
+use Kryus\Binary\DataType\SignedWord;
 
 class ViewAngle
 {

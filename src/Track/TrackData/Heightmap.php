@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Kryus\GeneRally\Track\TrackData;
 
 use Imagine\Image\ImageInterface;
-use Kryus\GeneRally\DataType\Byte;
+use Kryus\Binary\DataType\Byte;
 use Kryus\GeneRally\Track\TrackData\Heightmap\Height;
 
 class Heightmap
