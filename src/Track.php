@@ -36,9 +36,9 @@ class Track
      * @return Track
      * @throws \Exception
      */
-    public static function createFromFile(string $filename): Track
+    public static function createFromFilename(string $filename): Track
     {
-        $stream = ByteStream::createFromFile($filename);
+        $stream = ByteStream::createFromFilename($filename, 'rb');
 
         return self::createFromStream($stream);
     }

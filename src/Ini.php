@@ -40,7 +40,7 @@ class Ini
      * @param string $filename
      * @return Ini
      */
-    public static function createFromFile(string $filename): Ini
+    public static function createFromFilename(string $filename): Ini
     {
         $array = parse_ini_file($filename, true);
 

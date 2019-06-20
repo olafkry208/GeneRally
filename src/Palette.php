@@ -22,7 +22,7 @@ class Palette
      * @param string $filename
      * @return Palette
      */
-    public static function createFromFile(string $filename): Palette
+    public static function createFromFilename(string $filename): Palette
     {
         $file = file_get_contents($filename);
         $colors = [];

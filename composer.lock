@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d34f6bf4836a0f4650d47a1c03a2d11",
+    "content-hash": "63d79a432a8100ce2c4dd73eb85468b0",
     "packages": [
         {
             "name": "imagine/imagine",
@@ -66,16 +66,16 @@
         },
         {
             "name": "kryus/binary",
-            "version": "v0.1",
+            "version": "v0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:olafkry208/Binary.git",
-                "reference": "dca8af5592b224e05cdc1caa2eac31d6bf6facef"
+                "url": "https://github.com/olafkry208/Binary.git",
+                "reference": "35fc499ca3ecfaca7ddc9b085e2a1c03c9c430cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/olafkry208/Binary/zipball/dca8af5592b224e05cdc1caa2eac31d6bf6facef",
-                "reference": "dca8af5592b224e05cdc1caa2eac31d6bf6facef",
+                "url": "https://api.github.com/repos/olafkry208/Binary/zipball/35fc499ca3ecfaca7ddc9b085e2a1c03c9c430cb",
+                "reference": "35fc499ca3ecfaca7ddc9b085e2a1c03c9c430cb",
                 "shasum": ""
             },
             "require": {
@@ -97,10 +97,10 @@
             ],
             "description": "Binary file manipulation library.",
             "support": {
-                "source": "https://github.com/olafkry208/Binary/tree/v0.1",
+                "source": "https://github.com/olafkry208/Binary/tree/master",
                 "issues": "https://github.com/olafkry208/Binary/issues"
             },
-            "time": "2019-06-20T13:08:06+00:00"
+            "time": "2019-06-20T14:08:19+00:00"
         }
     ],
     "packages-dev": [],

@@ -38,9 +38,9 @@ abstract class Driver
      * @return Driver
      * @throws \Exception
      */
-    public static function createFromFile(string $filename): Driver
+    public static function createFromFilename(string $filename): Driver
     {
-        $stream = ByteStream::createFromFile($filename);
+        $stream = ByteStream::createFromFilename($filename, 'rb');
 
         return self::createFromStream($stream);
     }

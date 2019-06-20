@@ -20,7 +20,7 @@ class Language
      * @param string $filename
      * @return Language
      */
-    public static function createFromFile(string $filename): Language
+    public static function createFromFilename(string $filename): Language
     {
         $file = file_get_contents($filename);
         $translations = [];

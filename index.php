@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 
 $trackname = $_SERVER['argv'][1];
 
-$track = Track::createFromFile(__DIR__ . '/' . $trackname);
+$track = Track::createFromFilename(__DIR__ . '/' . $trackname);
 
 $landmapRenderer = new Track\TrackData\Landmap\Renderer\GdRenderer($track->getTrackData()->getLandmap());
 $landmapRenderer->saveAsBmp(__DIR__ . '/' . $trackname . '_LMap.bmp');
