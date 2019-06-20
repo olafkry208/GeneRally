@@ -21,6 +21,6 @@ class Version
 
     public function __toString()
     {
-        return $this->major . '.' . ($this->minor < 10 ? ('0' . $this->minor) : $this->minor);
+        return $this->major . '.' . str_pad((string)$this->minor, 2, '0', STR_PAD_LEFT);
     }
 }

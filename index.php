@@ -30,6 +30,13 @@ ob_start();
     <div style="flex: 1;">
         <table>
             <tr>
+                <th>Version</th>
+                <td><?php echo $track->getHeader()->getVersion(); ?></td>
+            </tr>
+        </table>
+        <table>
+            <caption>Track properties</caption>
+            <tr>
                 <th>Water level</th>
                 <td><?php echo $track->getTrackData()->getProperties()->getWaterLevel(); ?></td>
             </tr>

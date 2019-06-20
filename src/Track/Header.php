@@ -33,4 +33,12 @@ class Header
     {
         return $this->headerString . $this->version->__toString();
     }
+
+    /**
+     * @return Version
+     */
+    public function getVersion(): Version
+    {
+        return $this->version;
+    }
 }
