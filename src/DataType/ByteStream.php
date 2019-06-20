@@ -48,20 +48,20 @@ class ByteStream
     }
 
     /**
-     * @param int $length
+     * @param int $count
      * @return string
      * @throws \Exception
      */
-    private function readBinaryValue(int $length): string
+    public function readBytes(int $count): string
     {
         if ($this->isEof()) {
             throw new \Exception("Cannot read value: End of stream reached at position {$this->cursor}.");
         }
 
-        $value = substr($this->contents, $this->cursor, $length);
-        $this->cursor += $length;
+        $value = substr($this->contents, $this->cursor, $count);
+        $this->cursor += $count;
 
-        if (strlen($value) !== $length) {
+        if (strlen($value) !== $count) {
             throw new \Exception("Cannot read value: Unexpected end of stream at position {$this->cursor}.");
         }
 
@@ -76,7 +76,7 @@ class ByteStream
      */
     public function readString(int $maxLength, string $encoding = 'UTF-8'): string
     {
-        $string = $this->readBinaryValue($maxLength);
+        $string = $this->readBytes($maxLength);
 
         $stringTerminatorPosition = strpos($string, chr(0));
         if ($stringTerminatorPosition !== false) {
@@ -98,7 +98,7 @@ class ByteStream
      */
     public function readByte(): Byte
     {
-        $binaryValue = $this->readBinaryValue(1);
+        $binaryValue = $this->readBytes(1);
 
         return new Byte($binaryValue, $this->endianness);
     }
@@ -109,7 +109,7 @@ class ByteStream
      */
     public function readSignedByte(): SignedByte
     {
-        $binaryValue = $this->readBinaryValue(1);
+        $binaryValue = $this->readBytes(1);
 
         return new SignedByte($binaryValue, $this->endianness);
     }
@@ -120,7 +120,7 @@ class ByteStream
      */
     public function readWord(): Word
     {
-        $binaryValue = $this->readBinaryValue(2);
+        $binaryValue = $this->readBytes(2);
 
         return new Word($binaryValue, $this->endianness);
     }
@@ -131,7 +131,7 @@ class ByteStream
      */
     public function readSignedWord(): SignedWord
     {
-        $binaryValue = $this->readBinaryValue(2);
+        $binaryValue = $this->readBytes(2);
 
         return new SignedWord($binaryValue, $this->endianness);
     }
@@ -142,7 +142,7 @@ class ByteStream
      */
     public function readDword(): Dword
     {
-        $binaryValue = $this->readBinaryValue(4);
+        $binaryValue = $this->readBytes(4);
 
         return new Dword($binaryValue, $this->endianness);
     }
@@ -153,7 +153,7 @@ class ByteStream
      */
     public function readSignedDword(): SignedDword
     {
-        $binaryValue = $this->readBinaryValue(4);
+        $binaryValue = $this->readBytes(4);
 
         return new SignedDword($binaryValue, $this->endianness);
     }

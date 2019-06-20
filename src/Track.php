@@ -250,10 +250,7 @@ class Track
                 );
             }
 
-            $checksum = '';
-            for ($i = 0; $i < 16; $i++) {
-                $checksum .= $stream->readByte()->__toString();
-            }
+            $checksum = $stream->readBytes(16);
 
             $ghost = new TimeData\Ghost($ghostLapTime, $ghostFrames, $checksum);
         }
