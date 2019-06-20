@@ -1,7 +1,7 @@
 {
   "name": "kryus/gene-rally",
   "license": "MIT",
-  "description": "GeneRally file manipulation library.",
+  "description": "GeneRally file processing library.",
   "type": "library",
   "authors": [
     {
@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": "^7.1",
     "ext-gd": "*",
     "imagine/imagine": "^1.0"
   },
