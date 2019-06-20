@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Kryus\GeneRally\Track;
 
-use Kryus\GeneRally\DataType\Dword;
+use Kryus\GeneRally\DataType\Word;
 use Kryus\GeneRally\Track\Header\Version;
 
 class Header
@@ -14,14 +14,19 @@ class Header
     /** @var Version */
     private $version;
 
-    public function __construct(Dword $value)
+    /**
+     * @param Word $version
+     * @param string $headerString
+     * @throws \Exception
+     */
+    public function __construct(Word $version, string $headerString)
     {
-        $this->headerString = $value->getHighWord()->__toString();
-        $this->version = new Version($value->getLowWord());
-
-        if ($this->headerString !== 'GR') {
-            throw new \Exception("Invalid file header: “GR” expected, got “{$this->headerString}”.");
+        if ($headerString !== 'GR') {
+            throw new \Exception("Invalid file header: “GR” expected, got “{$headerString}”.");
         }
+
+        $this->headerString = $headerString;
+        $this->version = new Version($version);
     }
 
     public function __toString()

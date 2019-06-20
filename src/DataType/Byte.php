@@ -10,7 +10,7 @@ class Byte extends BinaryValue
      * @param int $endianness
      * @throws \Exception
      */
-    public function __construct(string $value, int $endianness = ByteStream::ENDIANNESS_LITTLE_ENDIAN)
+    public function __construct(string $value, int $endianness = BinaryValue::ENDIANNESS_LITTLE_ENDIAN)
     {
         $byteCount = strlen($value);
         if ($byteCount !== 1) {

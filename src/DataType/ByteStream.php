@@ -5,9 +5,6 @@ namespace Kryus\GeneRally\DataType;
 
 class ByteStream
 {
-    public const ENDIANNESS_LITTLE_ENDIAN = 0;
-    public const ENDIANNESS_BIG_ENDIAN = 1;
-
     /** @var string */
     private $contents;
 
@@ -22,9 +19,9 @@ class ByteStream
      * @param int $endianness
      * @throws \Exception
      */
-    public function __construct(string $contents, int $endianness = self::ENDIANNESS_LITTLE_ENDIAN)
+    public function __construct(string $contents, int $endianness = BinaryValue::ENDIANNESS_LITTLE_ENDIAN)
     {
-        if (!in_array($endianness, [self::ENDIANNESS_LITTLE_ENDIAN, self::ENDIANNESS_BIG_ENDIAN], true)) {
+        if (!in_array($endianness, [BinaryValue::ENDIANNESS_LITTLE_ENDIAN, BinaryValue::ENDIANNESS_BIG_ENDIAN], true)) {
             throw new \Exception('Invalid endianness type.');
         }
 
@@ -38,7 +35,7 @@ class ByteStream
      * @return ByteStream
      * @throws \Exception
      */
-    public static function createFromFile(string $filename, int $endianness = self::ENDIANNESS_LITTLE_ENDIAN): ByteStream
+    public static function createFromFile(string $filename, int $endianness = BinaryValue::ENDIANNESS_LITTLE_ENDIAN): ByteStream
     {
         $contents = file_get_contents($filename);
 
@@ -80,7 +77,13 @@ class ByteStream
     public function readString(int $maxLength, string $encoding = 'UTF-8'): string
     {
         $string = $this->readBinaryValue($maxLength);
-        $trimmedString = substr($string, 0, strpos($string, chr(0)));
+
+        $stringTerminatorPosition = strpos($string, chr(0));
+        if ($stringTerminatorPosition !== false) {
+            $trimmedString = substr($string, 0, $stringTerminatorPosition);
+        } else {
+            $trimmedString = substr($string, 0);
+        }
 
         if ($encoding === 'UTF-8') {
             return $trimmedString;

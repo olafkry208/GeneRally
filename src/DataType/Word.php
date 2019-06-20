@@ -10,7 +10,7 @@ class Word extends BinaryValue
      * @param int $endianness
      * @throws \Exception
      */
-    public function __construct(string $value, int $endianness = ByteStream::ENDIANNESS_LITTLE_ENDIAN)
+    public function __construct(string $value, int $endianness = BinaryValue::ENDIANNESS_LITTLE_ENDIAN)
     {
         $byteCount = strlen($value);
         if ($byteCount !== 2) {
@@ -29,7 +29,7 @@ class Word extends BinaryValue
         $value = $this->__toString();
         $endianness = $this->getEndianness();
 
-        return new Byte($value[$endianness === ByteStream::ENDIANNESS_LITTLE_ENDIAN ? 1 : 0], $endianness);
+        return new Byte($value[$endianness === BinaryValue::ENDIANNESS_LITTLE_ENDIAN ? 1 : 0], $endianness);
     }
 
     /**
@@ -41,6 +41,6 @@ class Word extends BinaryValue
         $value = $this->__toString();
         $endianness = $this->getEndianness();
 
-        return new Byte($value[$endianness === ByteStream::ENDIANNESS_LITTLE_ENDIAN ? 0 : 1], $endianness);
+        return new Byte($value[$endianness === BinaryValue::ENDIANNESS_LITTLE_ENDIAN ? 0 : 1], $endianness);
     }
 }

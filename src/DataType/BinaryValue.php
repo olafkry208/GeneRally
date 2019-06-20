@@ -5,6 +5,9 @@ namespace Kryus\GeneRally\DataType;
 
 class BinaryValue
 {
+    public const ENDIANNESS_LITTLE_ENDIAN = 0;
+    public const ENDIANNESS_BIG_ENDIAN = 1;
+
     /** @var int[] */
     private $value;
 
@@ -20,9 +23,9 @@ class BinaryValue
      * @param bool $signed
      * @throws \Exception
      */
-    public function __construct(string $value, int $endianness = ByteStream::ENDIANNESS_LITTLE_ENDIAN, bool $signed = false)
+    public function __construct(string $value, int $endianness = self::ENDIANNESS_LITTLE_ENDIAN, bool $signed = false)
     {
-        if (!in_array($endianness, [ByteStream::ENDIANNESS_LITTLE_ENDIAN, ByteStream::ENDIANNESS_BIG_ENDIAN], true)) {
+        if (!in_array($endianness, [self::ENDIANNESS_LITTLE_ENDIAN, self::ENDIANNESS_BIG_ENDIAN], true)) {
             throw new \Exception('Invalid endianness type.');
         }
 
@@ -34,12 +37,7 @@ class BinaryValue
         $this->signed = $signed;
     }
 
-    protected function getValue(): array
-    {
-        return $this->value;
-    }
-
-    protected function getEndianness(): int
+    public function getEndianness(): int
     {
         return $this->endianness;
     }
@@ -49,7 +47,7 @@ class BinaryValue
         $value = 0;
         $byteCount = count($this->value);
 
-        if ($this->endianness === ByteStream::ENDIANNESS_BIG_ENDIAN) {
+        if ($this->endianness === self::ENDIANNESS_BIG_ENDIAN) {
             for ($i = 0; $i < $byteCount; ++$i) {
                 $value *= 256;
                 $value += $this->value[$i];
@@ -74,16 +72,29 @@ class BinaryValue
 
     public function toHex(): string
     {
-        return implode('', array_map('dechex', $this->value));
+        return implode('', array_map(
+            static function ($value) {
+                return str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
+            },
+            $this->value
+        ));
     }
 
     public function toBin(): string
     {
-        return implode('', array_map('decbin', $this->value));
+        return implode('', array_map(
+            static function ($value) {
+                return str_pad(decbin($value), 8, '0', STR_PAD_LEFT);
+            },
+            $this->value
+        ));
     }
 
     public function __toString()
     {
-        return implode('', array_map('chr', $this->value));
+        return implode('', array_map(
+            'chr',
+            $this->value
+        ));
     }
 }

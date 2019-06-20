@@ -52,7 +52,7 @@ class Track
     {
         //TODO - Add 1.2 support
 
-        $header = new Header($stream->readDword());
+        $header = new Header($stream->readWord(), $stream->readString(2, 'ASCII'));
 
         $timeDataAddress = $stream->readDword()->toInt();
 
