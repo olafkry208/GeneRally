@@ -54,6 +54,7 @@ abstract class Driver
     {
         $header = $stream->readDword(); // 0x5C 0x00 0x00 0x00 ???
 
+        /** @var int[] $seasonValues */
         $seasonValues = [];
         for ($i = 0; $i < 7; $i++) {
             $seasonValues[] = $stream->readDword();
@@ -62,6 +63,7 @@ abstract class Driver
 
         $totalPoints = $stream->readDword();
 
+        /** @var int[] $raceValues */
         $raceValues = [];
         for ($i = 0; $i < 7; $i++) {
             $raceValues[] = $stream->readDword();

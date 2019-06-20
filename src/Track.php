@@ -64,6 +64,7 @@ class Track
         $sfLine = new TrackData\Properties\SfLine($stream->readByte());
 
         $landmapLength = $stream->readDword()->toInt();
+        /** @var int[] $landmapValues */
         $landmapValues = [];
         for ($i = 0; $i < $landmapLength; ++$i) {
             $landmapValues[] = $stream->readWord();
@@ -71,6 +72,7 @@ class Track
         $landmap = new TrackData\Landmap($landmapValues);
 
         $heightmapLength = $stream->readWord()->toInt();
+        /** @var int[] $heightmapValues */
         $heightmapValues = [];
         for ($i = 0; $i < $heightmapLength; ++$i) {
             $heightmapValues[] = $stream->readByte();
@@ -222,6 +224,7 @@ class Track
             }
         }
 
+        /** @var TimeData\Ghost|null $ghost */
         $ghost = null;
         if (!$stream->isEof()) {
             $ghostLapTime = new TimeData\LapTime($stream->readWord());
