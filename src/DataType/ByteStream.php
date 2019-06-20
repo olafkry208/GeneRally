@@ -73,14 +73,20 @@ class ByteStream
 
     /**
      * @param int $maxLength
+     * @param string $encoding
      * @return string
      * @throws \Exception
      */
-    public function readString(int $maxLength): string
+    public function readString(int $maxLength, string $encoding = 'UTF-8'): string
     {
         $string = $this->readBinaryValue($maxLength);
+        $trimmedString = substr($string, 0, strpos($string, chr(0)));
 
-        return substr($string, 0, strpos($string, chr(0)));
+        if ($encoding === 'UTF-8') {
+            return $trimmedString;
+        }
+
+        return mb_convert_encoding($trimmedString, 'UTF-8', $encoding);
     }
 
     /**

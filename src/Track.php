@@ -78,6 +78,7 @@ class Track
         $heightmap = new TrackData\Heightmap($heightmapValues);
 
         $objectCount = $stream->readWord()->toInt();
+        /** @var TrackData\TrackObject[] $objects */
         $objects = [];
         for ($i = 0; $i < $objectCount; ++$i) {
             $objectType = $stream->readByte();
@@ -90,6 +91,7 @@ class Track
         }
 
         $pitCrewCount = $stream->readByte()->toInt();
+        /** @var TrackData\PitCrew[] $pitCrews */
         $pitCrews = [];
         for ($i = 0; $i < $pitCrewCount; ++$i) {
             $pitCrewX = $stream->readWord();
@@ -100,6 +102,7 @@ class Track
         }
 
         $checkpointCount = $stream->readByte()->toInt();
+        /** @var TrackData\Checkpoint[] $checkpoints */
         $checkpoints = [];
         for ($i = 0; $i < $checkpointCount; ++$i) {
             $checkpointX1 = $stream->readWord();
@@ -111,6 +114,7 @@ class Track
         }
 
         $aiLineNodeCount = $stream->readWord()->toInt();
+        /** @var TrackData\AiLine\Node[] $aiLineNodes */
         $aiLineNodes = [];
         for ($i = 0; $i < $aiLineNodeCount; ++$i) {
             $aiLineNodeX = $stream->readWord();
@@ -121,6 +125,7 @@ class Track
         $aiLine = new TrackData\AiLine($aiLineNodes);
 
         $aiLinePitNodeCount = $stream->readByte()->toInt();
+        /** @var TrackData\AiLine\Node[] $aiLinePitNodes */
         $aiLinePitNodes = [];
         for ($i = 0; $i < $aiLinePitNodeCount; ++$i) {
             $aiLinePitNodeX = $stream->readWord();
@@ -132,8 +137,8 @@ class Track
 
         $authorSectionStart = $stream->readWord(); // 0xFFFF
 
-        $author = $stream->readString(30);
-        $authorsComments = $stream->readString(500);
+        $author = $stream->readString(30, 'ASCII');
+        $authorsComments = $stream->readString(500, 'ASCII');
 
         $authorSectionEnd = $stream->readWord(); // 0xFFFF
 
@@ -162,43 +167,59 @@ class Track
             $aiLinePit
         );
 
+        /** @var TimeData\LapTime[] $lapTimes */
         $lapTimes = [];
         for ($i = 0; $i < 7; $i++) {
-            $lapTimes[] = new TimeData\LapTime($stream->readWord());
+            $lapTimes[$i] = new TimeData\LapTime($stream->readWord());
         }
 
+        /** @var string[] $lapTimes */
         $driverNames = [];
         for ($i = 0; $i < 7; $i++) {
-            $driverNames[] = $stream->readString(13);
+            $driverNames[$i] = $stream->readString(13, 'ASCII');
         }
 
+        /** @var Car[] $cars */
         $cars = [];
         for ($i = 0; $i < 7; $i++) {
             for ($j = 0; $j < 1344; $j++) {
                 $stream->readByte(); //TODO - Car processing
             }
 
-            $cars[] = new Car();
+            $cars[$i] = new Car();
         }
 
+        /** @var \DateTimeImmutable[] $cars */
         $dateTimes = [];
         for ($i = 0; $i < 7; $i++) {
-            $year = $stream->readWord()->toInt();
-            $month = $stream->readWord()->toInt();
+            $year = str_pad((string)$stream->readWord()->toInt(), 4, '0', STR_PAD_LEFT);
+            $month = str_pad((string)$stream->readWord()->toInt(), 2, '0', STR_PAD_LEFT);
             $weekday = $stream->readWord()->toInt();
-            $day = $stream->readWord()->toInt();
-            $hour = $stream->readWord()->toInt();
-            $minute = $stream->readWord()->toInt();
-            $second = $stream->readWord()->toInt();
-            $millisecond = $stream->readWord()->toInt();
+            $day = str_pad((string)$stream->readWord()->toInt(), 2, '0', STR_PAD_LEFT);
+            $hour = str_pad((string)$stream->readWord()->toInt(), 2, '0', STR_PAD_LEFT);
+            $minute = str_pad((string)$stream->readWord()->toInt(), 2, '0', STR_PAD_LEFT);
+            $second = str_pad((string)$stream->readWord()->toInt(), 2, '0', STR_PAD_LEFT);
+            $millisecond = str_pad((string)$stream->readWord()->toInt(), 3, '0', STR_PAD_LEFT);
 
-            $dateTimes[] = new \DateTimeImmutable("{$year}-{$month}-{$day} {$hour}:{$minute}:{$second}.{$millisecond} UTC");
+            $dateTimes[$i] = new \DateTimeImmutable("{$year}-{$month}-{$day} {$hour}:{$minute}:{$second}.{$millisecond} UTC");
         }
 
+        /** @var TimeData\BestTime|null $trackRecord */
+        $trackRecord = null;
+        /** @var TimeData\BestTime[] $bestTimes */
         $bestTimes = [];
         for ($i = 0; $i < 7; $i++) {
-            //TODO - detect when best time is empty
-            $bestTimes[] = new TimeData\BestTime($lapTimes[$i], $driverNames[$i], $cars[$i], $dateTimes[$i]);
+            if ($lapTimes[$i]->toCentiseconds() < 6000) {
+                $bestTime = new TimeData\BestTime($lapTimes[$i], $driverNames[$i], $cars[$i], $dateTimes[$i]);
+
+                if ($i === 0) {
+                    $trackRecord = $bestTime;
+                } else {
+                    $bestTimes[$i] = $bestTime;
+                }
+            } elseif ($i > 0) {
+                break;
+            }
         }
 
         $ghost = null;
@@ -206,6 +227,7 @@ class Track
             $ghostLapTime = new TimeData\LapTime($stream->readWord());
 
             $ghostFrameCount = 1 + (int)floor($ghostLapTime->toCentiseconds() / 2);
+            /** @var TimeData\Ghost\Node[] $ghostFrames */
             $ghostFrames = [];
             for ($i = 0; $i < $ghostFrameCount; $i++) {
                 $ghostFrameX = $stream->readWord();
@@ -233,7 +255,7 @@ class Track
             $ghost = new TimeData\Ghost($ghostLapTime, $ghostFrames, $checksum);
         }
 
-        $timeData = new TimeData($bestTimes, $ghost);
+        $timeData = new TimeData($trackRecord, $bestTimes, $ghost);
 
         return new self($header, $trackData, $timeData);
     }

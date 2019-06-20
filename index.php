@@ -17,8 +17,11 @@ $track->getTrackData()->getHeightmap()->toImage()->save(__DIR__ . '/' . $trackna
 ob_start();
 ?>
 <!DOCTYPE html>
-<html>
-<head></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Track reading demo</title>
+</head>
 <body>
 <div style="display: flex;">
     <div style="flex: 1;">
@@ -56,19 +59,31 @@ ob_start();
             </tr>
             <tr>
                 <th>Author</th>
-                <td><?php echo $track->getTrackData()->getProperties()->getAuthor(); ?></td>
+                <td><?php echo htmlspecialchars($track->getTrackData()->getProperties()->getAuthor()); ?></td>
             </tr>
             <tr>
                 <th>Author's comments</th>
-                <td><?php echo $track->getTrackData()->getProperties()->getAuthorsComments(); ?></td>
+                <td><?php echo nl2br(htmlspecialchars($track->getTrackData()->getProperties()->getAuthorsComments())); ?></td>
             </tr>
         </table>
         <table>
+            <caption>Track record</caption>
+            <?php if ($track->getTimeData()->getTrackRecord() !== null) { ?>
+                <tr>
+                    <th></th>
+                    <td><?php echo $track->getTimeData()->getTrackRecord()->getLapTime(); ?> s</td>
+                    <td><?php echo htmlspecialchars($track->getTimeData()->getTrackRecord()->getDriverName()); ?></td>
+                    <td><?php echo $track->getTimeData()->getTrackRecord()->getDateTime()->format('Y-m-d H:i:s.v T'); ?></td>
+                </tr>
+            <?php } ?>
+        </table>
+        <table>
+            <caption>Best times</caption>
             <?php foreach ($track->getTimeData()->getBestTimes() as $i => $bestTime) { ?>
                 <tr>
-                    <th><?php echo $i === 0 ? 'TR' : "{$i}."; ?></th>
-                    <td><?php echo $bestTime->getLapTime(); ?></td>
-                    <td><?php echo $bestTime->getDriverName(); ?></td>
+                    <th><?php echo $i; ?>.</th>
+                    <td><?php echo $bestTime->getLapTime(); ?> s</td>
+                    <td><?php echo htmlspecialchars($bestTime->getDriverName()); ?></td>
                     <td><?php echo $bestTime->getDateTime()->format('Y-m-d H:i:s.v T'); ?></td>
                 </tr>
             <?php } ?>
